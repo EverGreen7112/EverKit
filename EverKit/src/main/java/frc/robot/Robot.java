@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
 
-  public static ArrayList<Method> periodicFuncs = new ArrayList<Method>();
+  public static ArrayList<Consumer> periodicFuncs = new ArrayList<Consumer>();
 
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
@@ -28,9 +29,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    for (Method method : periodicFuncs) {
+    for (Consumer<Object> method : periodicFuncs) {
       try {
-        method.invoke(null);
+        method.accept(null);
       } catch (Exception e) {
         e.printStackTrace();
       }

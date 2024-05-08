@@ -13,13 +13,20 @@ public class EverSparkMaxPIDController implements EverPIDController{
     }
 
     @Override
-    public void setPIDF(double kp, double ki, double kd, double kf) {
+    public void setPIDF(double kp, double ki, double kd, double ff) {
         m_controller.getPIDController().setP(kp);
         m_controller.getPIDController().setI(ki);
         m_controller.getPIDController().setD(kd);
-        m_controller.getPIDController().setFF(kf);
+        m_controller.getPIDController().setFF(ff);
     }
-
+    
+    @Override
+    public void setPID(double kp, double ki, double kd) {
+        m_controller.getPIDController().setP(kp);
+        m_controller.getPIDController().setI(ki);
+        m_controller.getPIDController().setD(kd);
+    }
+    
     @Override
     public void activate(double setpoint, ControlType type) {
         switch (type) {
@@ -33,5 +40,17 @@ public class EverSparkMaxPIDController implements EverPIDController{
                 break;
         }
     }
+
+    @Override
+    public void resetIAccum() {
+        m_controller.getPIDController().setIAccum(0);
+    }
+
+    @Override
+    public void stop() {
+        m_controller.stop();
+    }
+
+   
     
 }
