@@ -10,21 +10,24 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Robot;
 import frc.robot.EverKit.EverMotorController;
 import frc.robot.EverKit.EverPIDController;
+import frc.robot.EverKit.Periodic;
 import pabeles.concurrency.IntOperatorTask.Max;
 
-public class EverExternalPIDController implements EverPIDController{
+public class EverExternalPIDController implements EverPIDController, Periodic{
     private PIDController m_pidController;
     private double m_ff;
     private double m_maxOutput;
+    private double m_setpoint;
+    private boolean m_activated;
     private Supplier<Double> currentState;
     private EverMotorController m_controller;
-    private Consumer<Object> applyOutput;
 
     public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double ff, double maxOutput){
         m_pidController = new PIDController(kp, ki, kd);
         m_ff = ff;
         m_controller = controller;
-        Robot.periodicFuncs.add(applyOutput);
+        m_activated = false;
+        initialize(periodicTime.kTeleopPeriodic, periodicTime.kTestPeriodic, periodicTime.kAutonomousPeriodic);
     }
 
     public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double maxOutput){
@@ -53,16 +56,8 @@ public class EverExternalPIDController implements EverPIDController{
 
     @Override
     public void activate(double setpoint, ControlType type) {
-        applyOutput = new Consumer<Object>() {
-            @Override
-            public void accept(Object t) {
-                double current = currentState.get();
-                double output = m_pidController.calculate(current, setpoint);
-                output +=  Math.signum(output) * m_ff;
-                output = MathUtil.clamp(output, -m_maxOutput, m_maxOutput);
-                m_controller.set(output);
-            }
-        };
+        m_setpoint = setpoint;
+        m_activated = true;
     }
 
     @Override
@@ -72,12 +67,20 @@ public class EverExternalPIDController implements EverPIDController{
 
     @Override
     public void stop() {
-        applyOutput = new Consumer<Object>() {
-            @Override
-            public void accept(Object t) {}
-        };
+        m_activated = false;
         m_controller.stop();
         resetIAccum();
+    }
+
+    @Override
+    public void periodic() {
+        if(!m_activated)
+            return;
+        double current = currentState.get();
+        double output = m_pidController.calculate(current, m_setpoint);
+        output +=  Math.signum(output) * m_ff;
+        output = MathUtil.clamp(output, -m_maxOutput, m_maxOutput);
+        m_controller.set(output);
     }
     
 
