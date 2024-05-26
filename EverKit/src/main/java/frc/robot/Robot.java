@@ -4,23 +4,18 @@
 
 package frc.robot;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.function.Consumer;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.EverKit.Periodic.periodicTime;
+import frc.robot.EverKit.Periodic;
 
 public class Robot extends TimedRobot {
-  public static ArrayList<Consumer<Object>> robotPeriodicFuncs = new ArrayList<Consumer<Object>>();
-  public static ArrayList<Consumer<Object>> teleopPeriodicFuncs = new ArrayList<Consumer<Object>>();
-  public static ArrayList<Consumer<Object>> testPeriodicFuncs = new ArrayList<Consumer<Object>>();
-  public static ArrayList<Consumer<Object>> autonomousPeriodicFuncs = new ArrayList<Consumer<Object>>();
-  public static ArrayList<Consumer<Object>> simulationPeriodicFuncs = new ArrayList<Consumer<Object>>();
+  public static ArrayList<Periodic> robotPeriodicFuncs = new ArrayList<Periodic>();
+  public static ArrayList<Periodic> teleopPeriodicFuncs = new ArrayList<Periodic>();
+  public static ArrayList<Periodic> testPeriodicFuncs = new ArrayList<Periodic>();
+  public static ArrayList<Periodic> autonomousPeriodicFuncs = new ArrayList<Periodic>();
+  public static ArrayList<Periodic> simulationPeriodicFuncs = new ArrayList<Periodic>();
 
 
   private Command m_autonomousCommand;
@@ -34,9 +29,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    for (Consumer<Object> method : robotPeriodicFuncs) {
+    for (Periodic method : robotPeriodicFuncs) {
       try {
-        method.accept(null);
+        method.periodic();
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -64,9 +59,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    for (Consumer<Object> method : autonomousPeriodicFuncs) {
+    for (Periodic method : autonomousPeriodicFuncs) {
       try {
-        method.accept(null);
+        method.periodic();
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -85,9 +80,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    for (Consumer<Object> method : teleopPeriodicFuncs) {
+    for (Periodic method : teleopPeriodicFuncs) {
       try {
-        method.accept(null);
+        method.periodic();
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -104,9 +99,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    for (Consumer<Object> method : testPeriodicFuncs) {
+    for (Periodic method : testPeriodicFuncs) {
       try {
-        method.accept(null);
+        method.periodic();
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -118,9 +113,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void simulationPeriodic() {
-    for (Consumer<Object> method : simulationPeriodicFuncs) {
+    for (Periodic method : simulationPeriodicFuncs) {
       try {
-        method.accept(null);
+        method.periodic();
       } catch (Exception e) {
         e.printStackTrace();
       }
