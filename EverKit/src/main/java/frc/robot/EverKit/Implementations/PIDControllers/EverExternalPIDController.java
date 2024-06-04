@@ -20,7 +20,6 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
         m_pidController = new PIDController(kp, ki, kd);
         m_ff = ff;
         m_controller = controller;
-        start(periodicTime.kTeleopPeriodic, periodicTime.kTestPeriodic, periodicTime.kAutonomousPeriodic);
     }
 
     public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double maxOutput){
@@ -50,6 +49,7 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
     @Override
     public void activate(double setpoint, ControlType type) {
         m_setpoint = setpoint;
+        start(periodicTime.kTeleopPeriodic, periodicTime.kTestPeriodic, periodicTime.kAutonomousPeriodic);
     }
 
     @Override
@@ -66,7 +66,6 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
 
     @Override
     public void periodic() {
-        
         double current = currentState.get();
         double output = m_pidController.calculate(current, m_setpoint);
         output +=  Math.signum(output) * m_ff;
