@@ -4,7 +4,7 @@ public interface EverPIDController {
 
     public enum ControlType{
         kPos,
-        kVel, kPosition
+        kVel,
     }
 
     /**
@@ -22,6 +22,9 @@ public interface EverPIDController {
      */
     public void setPID(double kp, double ki, double kd);
 
+    /**
+     * reset I
+     */
     public void resetIAccum();
 
     /** 
