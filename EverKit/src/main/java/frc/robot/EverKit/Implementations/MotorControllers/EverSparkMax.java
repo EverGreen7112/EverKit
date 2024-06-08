@@ -82,7 +82,7 @@ public class EverSparkMax implements EverMotorController{
         m_controller.restoreFactoryDefaults();
     }
 
-    public SparkPIDController getPIDController(){
+    public SparkPIDController getInternalPIDController(){
         return m_controller.getPIDController();
     }
 }

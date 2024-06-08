@@ -20,6 +20,7 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
         m_pidController = new PIDController(kp, ki, kd);
         m_ff = ff;
         m_controller = controller;
+        m_maxOutput = maxOutput;
     }
 
     public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double maxOutput){
