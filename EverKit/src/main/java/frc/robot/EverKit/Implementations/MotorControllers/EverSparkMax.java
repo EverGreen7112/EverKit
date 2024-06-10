@@ -2,10 +2,8 @@ package frc.robot.EverKit.Implementations.MotorControllers;
 
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.EverKit.EverMotorController;
 
 public class EverSparkMax implements EverMotorController{
@@ -42,7 +40,7 @@ public class EverSparkMax implements EverMotorController{
     }
 
     @Override
-    public void follow(MotorController motorController) {
+    public void follow(EverMotorController motorController) {
         
         if(motorController instanceof CANSparkBase){
             CANSparkBase controller = (CANSparkBase) motorController;
@@ -82,7 +80,9 @@ public class EverSparkMax implements EverMotorController{
         m_controller.restoreFactoryDefaults();
     }
 
-    public SparkPIDController getInternalPIDController(){
-        return m_controller.getPIDController();
+
+    @Override
+    public CANSparkMax getControllerInstance() {
+        return m_controller;
     }
 }

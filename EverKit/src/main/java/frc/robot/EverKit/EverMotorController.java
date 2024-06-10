@@ -1,7 +1,5 @@
 package frc.robot.EverKit;
 
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-
 public interface EverMotorController {
     
     public enum IdleMode{
@@ -40,7 +38,7 @@ public interface EverMotorController {
      * output = target's output
      * @param motorController - target mottor
      */
-    public void follow(MotorController motorController);
+    public void follow(EverMotorController motorController);
 
     /**
      * @return this motor controller's id.
@@ -62,5 +60,10 @@ public interface EverMotorController {
      * Restore factory default.
      */
     public void restoreFactoryDefaults();
+
+    /**
+     * @return the original instance of the motor controller
+     */
+    public Object getControllerInstance();
     
 }
