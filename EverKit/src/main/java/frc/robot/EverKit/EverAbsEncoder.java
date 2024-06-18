@@ -3,7 +3,12 @@ package frc.robot.EverKit;
 public interface EverAbsEncoder {
     
     /**
-     * @return current position
+     * @return current absolute position
+     */
+    public double getAbsPos();
+
+    /**
+     * @return current position 
      */
     public double getPos();
     
