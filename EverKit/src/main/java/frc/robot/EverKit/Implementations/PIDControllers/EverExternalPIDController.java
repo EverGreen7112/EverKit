@@ -13,7 +13,7 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
     private double m_ff;
     private double m_maxOutput;
     private double m_setpoint;
-    private Supplier<Double> currentState;
+    private Supplier<Double> m_currentState;
     private EverMotorController m_controller;
 
     public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double ff, double maxOutput){
@@ -39,6 +39,10 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
     public void setPIDF(double kp, double ki, double kd, double ff) {
         m_pidController.setPID(kp, ki, kd);
         m_ff = ff;
+    }
+
+    public void setCurrentState(Supplier<Double> currentState){
+        m_currentState = currentState;
     }
 
     @Override
@@ -67,7 +71,7 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
 
     @Override
     public void periodic() {
-        double current = currentState.get();
+        double current = m_currentState.get();
         double output = m_pidController.calculate(current, m_setpoint);
         output +=  Math.signum(output) * m_ff;
         output = MathUtil.clamp(output, -m_maxOutput, m_maxOutput);

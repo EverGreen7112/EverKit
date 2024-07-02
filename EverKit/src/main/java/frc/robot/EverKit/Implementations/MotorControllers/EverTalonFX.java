@@ -1,5 +1,6 @@
 package frc.robot.EverKit.Implementations.MotorControllers;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -70,8 +71,7 @@ public class EverTalonFX implements EverMotorController{
 
     @Override
     public void restoreFactoryDefaults() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'restoreFactoryDefaults'");
+        m_controller.getConfigurator().apply(new TalonFXConfiguration());
     }
 
     @Override
