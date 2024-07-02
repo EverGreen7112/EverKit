@@ -16,23 +16,24 @@ public class EverExternalPIDController implements EverPIDController, Periodic{
     private Supplier<Double> m_currentState;
     private EverMotorController m_controller;
 
-    public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double ff, double maxOutput){
+    public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double ff, double maxOutput, Supplier<Double> currentState){
         m_pidController = new PIDController(kp, ki, kd);
         m_ff = ff;
         m_controller = controller;
         m_maxOutput = maxOutput;
+        m_currentState = currentState;
     }
 
     public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd, double maxOutput){
-        this(controller, kp, ki, kd, 0, maxOutput);
+        this(controller, kp, ki, kd, 0, maxOutput, null);
     }
 
     public EverExternalPIDController(EverMotorController controller, double kp, double ki, double kd){
-        this(controller, kp, ki, kd, 0, 1);
+        this(controller, kp, ki, kd, 0, 1, null);
     }
     
     public EverExternalPIDController(EverMotorController controller){
-        this(controller, 0, 0, 0, 0, 1);
+        this(controller, 0, 0, 0, 0, 1, null);
     }
 
     @Override
