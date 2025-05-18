@@ -125,8 +125,25 @@ public class EverSparkMax extends EverMotorController{
         m_config.encoder.velocityConversionFactor(factor);
         applyConfig();
     }
+
+    public void setForwardLimitSwitchConfig(boolean enabled){
+        LimitSwitchConfig lsConfig = new LimitSwitchConfig();
+        lsConfig.forwardLimitSwitchEnabled(enabled);
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.apply(lsConfig);
+        m_controller.configure(config, null, null);
+    }
+
+    public void setReverseLimitSwitchConfig(boolean enabled){
+        LimitSwitchConfig lsConfig = new LimitSwitchConfig();
+        lsConfig.reverseLimitSwitchEnabled(enabled);
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.apply(lsConfig);
+        m_controller.configure(config, null, null);
+    }
     
     private void applyConfig(){
         m_controller.configure(m_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
+
 }
