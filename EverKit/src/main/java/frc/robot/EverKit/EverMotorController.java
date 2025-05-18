@@ -1,8 +1,6 @@
-package frc.robot.EverKit;
+package frc.robot.Utils.EverKit;
 
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-
-public interface EverMotorController {
+public abstract class EverMotorController {
     
     public enum IdleMode{
         kCoast,
@@ -12,55 +10,53 @@ public interface EverMotorController {
     /**
      * get current speed(precentage (-1 - 1))
      */
-    public double get();
+    public abstract double get();
 
   
     /**
      * set current speed(precentage (-1 - 1))
      */
-    public void set(double value);   
+    public abstract void set(double value);   
 
     /**
      * Invert directions of motor;
      */
-    public void setInverted(boolean isInverted);
+    public abstract void setInverted(boolean isInverted);
     
     /**
      * @return if the directions of the motors are inverted.
      */
-    public boolean getInverted();
+    public abstract boolean getInverted();
     
     /**
      * stop motor
      */
-    public void stop();
-
-    /**
-     * follow a given motor controller. 
-     * output = target's output
-     * @param motorController - target mottor
-     */
-    public void follow(MotorController motorController);
+    public abstract void stop();
 
     /**
      * @return this motor controller's id.
      */
-    public int getId();
+    public abstract int getId();
 
     /**
      * Set idle mode.
      * @param idleMode - coast or brake.
      */
-    public void setIdleMode(IdleMode idleMode);
+    public abstract void setIdleMode(IdleMode idleMode);
 
     /**
      * @return current temperature of motor.
      */
-    public double getTemperature();
+    public abstract double getTemperature();
 
     /**
      * Restore factory default.
      */
-    public void restoreFactoryDefaults();
+    public abstract void restoreFactoryDefaults();
+
+    /**
+     * @return the original instance of the motor controller
+     */
+    public abstract Object getControllerInstance();
     
 }

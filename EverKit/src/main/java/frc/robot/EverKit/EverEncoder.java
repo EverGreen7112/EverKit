@@ -1,31 +1,33 @@
-package frc.robot.EverKit;
+package frc.robot.Utils.EverKit;
 
-public interface EverEncoder {
+public abstract class EverEncoder {
     
     /**
      * @return current position
      */
-    public double getPos();
+    public abstract double getPos();
     
     /**
      * Set position of encoder
      */
-    public void setPos(double pos);
+    public abstract void setPos(double pos);
 
     /**
      * @return current velocity
      */
-    public double getVel();
-    
+    public abstract double getVel();
+
     /**
      * Set conversion factor of the position value that is returned from the {@link #getPos()} function.
      * This should be used when trying to switch between units of measure.
      */
-    public void setPosConversionFactor(double factor);
+    public abstract void setPosConversionFactor(double factor);
 
     /**
      * Set conversion factor of the vel value that is returned from the {@link #getVel()}  function.
      * This should be used when trying to switch between units of measure.
      */
-    public void setVelConversionFactor(double factor);    
+    public abstract void setVelConversionFactor(double factor);    
+
+    
 }
