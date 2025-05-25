@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package frc.robot.Utils.EverKit.Implementations.MotorControllers;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -26,6 +27,23 @@ public class EverTalonFX extends EverMotorController{
         m_velConversionFactor = 1;
         m_config = new TalonFXConfiguration();
         m_configurator = m_controller.getConfigurator();
+=======
+package frc.robot.EverKit.Implementations.MotorControllers;
+
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import frc.robot.EverKit.EverMotorController;
+
+public class EverTalonFX implements EverMotorController{ 
+    
+    private TalonFX m_controller;
+    
+    public EverTalonFX(int id){
+        m_controller = new TalonFX(id);
+>>>>>>> origin/develop
     }
 
     @Override
@@ -40,16 +58,24 @@ public class EverTalonFX extends EverMotorController{
 
     @Override
     public void setInverted(boolean isInverted) {
+<<<<<<< HEAD
         if(isInverted)
             m_config.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;    
         else
             m_config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         m_configurator.apply(m_config);
+=======
+        m_controller.setInverted(isInverted);
+>>>>>>> origin/develop
     }
 
     @Override
     public boolean getInverted() {
+<<<<<<< HEAD
         return (m_config.MotorOutput.Inverted == InvertedValue.Clockwise_Positive) ? true: false;
+=======
+        return m_controller.getInverted();
+>>>>>>> origin/develop
     }
 
     @Override
@@ -58,6 +84,14 @@ public class EverTalonFX extends EverMotorController{
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void follow(EverMotorController motorController) {
+        m_controller.setControl(new Follower(motorController.getId(), motorController.getInverted()));
+    }
+
+    @Override
+>>>>>>> origin/develop
     public int getId() {
         return m_controller.getDeviceID();
     }
@@ -78,19 +112,28 @@ public class EverTalonFX extends EverMotorController{
 
     @Override
     public double getTemperature() {
+<<<<<<< HEAD
         return m_controller.getDeviceTemp().getValueAsDouble();
+=======
+        return m_controller.getDeviceTemp().getValue();
+>>>>>>> origin/develop
     }
 
     @Override
     public void restoreFactoryDefaults() {
+<<<<<<< HEAD
         m_config = new TalonFXConfiguration();
         m_configurator.apply(m_config);
+=======
+        m_controller.getConfigurator().apply(new TalonFXConfiguration());
+>>>>>>> origin/develop
     }
 
     @Override
     public TalonFX getControllerInstance() {
         return m_controller;
     }
+<<<<<<< HEAD
 
     public void setPidConfig(Slot0Configs config){
         m_config.Slot0 = config;
@@ -117,4 +160,7 @@ public class EverTalonFX extends EverMotorController{
         return m_posConversionFactor;
     }
 
+=======
+    
+>>>>>>> origin/develop
 }

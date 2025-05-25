@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package frc.robot.Utils.EverKit.Implementations.PIDControllers;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -25,6 +26,22 @@ public class EverTalonFXPIDController extends EverPIDController{
         m_everController = controller;
         m_posControlRequest = new PositionVoltage(0).withSlot(0);
         m_velocityControlRequest = new VelocityVoltage(0).withSlot(0);
+=======
+package frc.robot.EverKit.Implementations.PIDControllers;
+
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import frc.robot.EverKit.EverPIDController;
+
+public class EverTalonFXPIDController implements EverPIDController{
+
+    private TalonFX m_controller;
+    
+    public EverTalonFXPIDController(TalonFX controller){
+        m_controller = controller;
+>>>>>>> origin/develop
     }
 
     @Override
@@ -34,7 +51,11 @@ public class EverTalonFXPIDController extends EverPIDController{
         slot0Configs.kI = ki;
         slot0Configs.kD = kd;
         slot0Configs.kS = kf;
+<<<<<<< HEAD
         m_everController.setPidConfig(slot0Configs);     
+=======
+        m_controller.getConfigurator().apply(slot0Configs);
+>>>>>>> origin/develop
     }
 
     @Override
@@ -43,21 +64,30 @@ public class EverTalonFXPIDController extends EverPIDController{
         slot0Configs.kP = kp; 
         slot0Configs.kI = ki;
         slot0Configs.kD = kd;
+<<<<<<< HEAD
         slot0Configs.kV = 0;
         m_everController.setPidConfig(slot0Configs);
     }
 
     public void setPID(Slot0Configs config){
         m_everController.setPidConfig(config);     
+=======
+        m_controller.getConfigurator().apply(slot0Configs);
+>>>>>>> origin/develop
     }
 
     @Override
     public void resetIAccum() {
+<<<<<<< HEAD
+=======
+        // TODO Auto-generated method stub
+>>>>>>> origin/develop
         throw new UnsupportedOperationException("Unimplemented method 'resetIAccum'");
     }
 
     @Override
     public void activate(double setpoint, ControlType type) {
+<<<<<<< HEAD
 
         switch (type) {
             case kPos:
@@ -67,6 +97,14 @@ public class EverTalonFXPIDController extends EverPIDController{
             case kVel:
                 double velConversionFactor = m_everController.getVelConversionFactor();
                 m_controller.setControl(m_velocityControlRequest.withVelocity(setpoint / velConversionFactor));
+=======
+        switch (type) {
+            case kPos:
+                m_controller.setControl(new PositionVoltage(setpoint).withSlot(0));
+                break;
+            case kVel:
+                m_controller.setControl(new VelocityVoltage(setpoint).withSlot(0));
+>>>>>>> origin/develop
                 break;    
             default:
                 break;

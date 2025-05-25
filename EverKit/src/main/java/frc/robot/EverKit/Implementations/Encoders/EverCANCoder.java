@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package frc.robot.Utils.EverKit.Implementations.Encoders;
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -7,6 +8,15 @@ import frc.robot.Utils.EverKit.EverAbsEncoder;
 
 
 public class EverCANCoder extends EverAbsEncoder{
+=======
+package frc.robot.EverKit.Implementations.Encoders;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+import com.ctre.phoenix6.hardware.CANcoder;
+
+import frc.robot.EverKit.EverAbsEncoder;
+
+public class EverCANCoder implements EverAbsEncoder{
+>>>>>>> origin/develop
 
     private CANcoder m_encoder;
     private MagnetSensorConfigs m_configs;
@@ -18,6 +28,10 @@ public class EverCANCoder extends EverAbsEncoder{
      */
     public EverCANCoder(int id){
         m_encoder = new CANcoder(id);
+<<<<<<< HEAD
+=======
+        m_encoder.setPosition(0);
+>>>>>>> origin/develop
         m_configs = new MagnetSensorConfigs();
         m_posFactor = 1;
         m_velFactor = 1;
@@ -28,7 +42,11 @@ public class EverCANCoder extends EverAbsEncoder{
      */
     @Override
     public double getAbsPos() {
+<<<<<<< HEAD
         return m_encoder.getAbsolutePosition().getValueAsDouble() * m_posFactor;
+=======
+        return m_encoder.getAbsolutePosition().getValue() * m_posFactor;
+>>>>>>> origin/develop
     }
 
     /**
@@ -36,7 +54,11 @@ public class EverCANCoder extends EverAbsEncoder{
      */
     @Override
     public double getPos() {
+<<<<<<< HEAD
        return m_encoder.getPositionSinceBoot().getValueAsDouble() * m_posFactor;
+=======
+       return m_encoder.getPosition().getValue() * m_posFactor;
+>>>>>>> origin/develop
     }
 
     /**
@@ -52,7 +74,11 @@ public class EverCANCoder extends EverAbsEncoder{
      */
     @Override
     public double getVel() {
+<<<<<<< HEAD
         return m_encoder.getVelocity().getValueAsDouble() * m_velFactor;
+=======
+        return m_encoder.getVelocity().getValue() * m_velFactor;
+>>>>>>> origin/develop
     }
 
     @Override
@@ -62,8 +88,13 @@ public class EverCANCoder extends EverAbsEncoder{
 
     @Override
     public void setOffset(double offset) {
+<<<<<<< HEAD
         m_configs.withMagnetOffset((m_posFactor - offset) / m_posFactor);
         m_encoder.getConfigurator().apply(m_configs);      
+=======
+        m_configs.withMagnetOffset(1 * m_posFactor - offset / m_posFactor);
+        m_encoder.getConfigurator().apply(m_configs);        
+>>>>>>> origin/develop
     }
 
     /**
