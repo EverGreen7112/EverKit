@@ -17,5 +17,7 @@ public abstract class EverAbsEncoder extends EverEncoder{
      * Set offset of encoder from origin.
      */
     public abstract void setOffset(double offset);
+
+    public abstract boolean isConnected(); // Check if the encoder is connected
     
 }

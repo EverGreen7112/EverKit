@@ -47,5 +47,10 @@ public class EverTalonFXInternalEncoder extends EverEncoder{
         m_everController.setVelConversionFactor(factor);
     }
 
+    @Override
+    public boolean isConnected() {
+        return m_controller.isConnected();
+    }
+
 
 }

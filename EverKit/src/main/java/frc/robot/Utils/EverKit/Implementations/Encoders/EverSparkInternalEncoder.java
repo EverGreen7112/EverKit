@@ -39,6 +39,11 @@ public class EverSparkInternalEncoder extends EverEncoder{
     public void setVelConversionFactor(double factor) {
         m_controller.setVelConversionFactor(factor);
     }
+
+    @Override
+    public boolean isConnected() {
+        return m_controller.isConnected();
+    }
     
     
 }

@@ -29,5 +29,7 @@ public abstract class EverEncoder {
      */
     public abstract void setVelConversionFactor(double factor);    
 
+    public abstract boolean isConnected(); // Check if the encoder is connected
+
     
 }

@@ -3,8 +3,13 @@ package frc.robot.Utils.EverKit.Implementations.MotorControllers;
 
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import java.io.ObjectInputFilter.Config;
+
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -128,5 +133,40 @@ public class EverSparkMax extends EverMotorController{
     
     private void applyConfig(){
         m_controller.configure(m_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    }
+
+    /**
+     * 
+     * @param maxVel max velocity
+     * @param maxAcc max acceleration in RPM but effected by the converion factor
+     * @param allowedErr the allowed error from the set point
+     * @param slot the pid slot that the setings will be used at
+     */
+    public void smartMotion(double maxVel, double maxAcc, double allowedErr, ClosedLoopSlot slot){
+        m_config.closedLoop.maxMotion.
+        maxVelocity(maxVel).
+        maxAcceleration(maxAcc).
+        allowedClosedLoopError(allowedErr, slot);
+        applyConfig();
+    }
+
+        /**
+     * 
+     * @param maxVel max velocity
+     * @param maxAcc max acceleration in RPM but effected by the converion factor
+     * @param allowedErr the allowed error from the set point
+     */
+    public void smartMotion(double maxVel, double maxAcc, double allowedErr){
+        m_config.closedLoop.maxMotion.
+        maxVelocity(maxVel).
+        maxAcceleration(maxAcc).
+        allowedClosedLoopError(allowedErr);
+        applyConfig();
+    }
+
+
+    @Override
+    public boolean isConnected() {
+        return m_controller.getMotorTemperature() > 0;
     }
 }

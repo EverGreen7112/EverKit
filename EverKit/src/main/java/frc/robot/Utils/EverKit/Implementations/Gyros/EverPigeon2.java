@@ -47,5 +47,10 @@ public class EverPigeon2 implements EverGyro{
     public void resetRoll() {
         m_rollOffset = getRoll();
     }
+
+    @Override
+    public boolean isConnected() {
+        return m_pigeon.isConnected();
+    }
     
 }

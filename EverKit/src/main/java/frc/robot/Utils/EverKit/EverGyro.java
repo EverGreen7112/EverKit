@@ -32,6 +32,8 @@ public interface EverGyro {
     */
     public void resetRoll();
 
+    public boolean isConnected(); // Check if the gyro is connected
+
 
 
 }

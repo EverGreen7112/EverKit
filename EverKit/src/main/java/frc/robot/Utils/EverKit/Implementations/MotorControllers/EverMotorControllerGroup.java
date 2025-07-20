@@ -87,5 +87,15 @@ public class EverMotorControllerGroup extends EverMotorController{
             return null;
         return m_motorControllers.get(0);
     }
+
+    @Override
+    public boolean isConnected() {
+        for (EverMotorController motorController : m_motorControllers) {
+            if (!motorController.isConnected()) {
+                return false;
+            }
+        }
+        return true;
+    }
     
 }

@@ -81,5 +81,10 @@ public class EverCANCoder extends EverAbsEncoder{
     public void setVelConversionFactor(double factor) {
         m_velFactor = factor;
     }
+
+    @Override
+    public boolean isConnected() {
+        return m_encoder.isConnected();
+    }
     
 }
